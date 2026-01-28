@@ -1,0 +1,10 @@
+<Solution>
+  <Project Path="QS.Common/QS.Common.csproj" />
+  <Project Path="QS.Data.Models/QS.Data.Models.csproj" />
+  <Project Path="QS.Data/QS.Data.csproj" />
+  <Project Path="QS.Services.Data/QS.Services.Data.csproj" />
+  <Project Path="QS.Services.Mapping/QS.Services.Mapping.csproj" />
+  <Project Path="QS.Web.Infrastructure/QS.Web.Infrastructure.csproj" />
+  <Project Path="QS.Web.ViewModel/QS.Web.ViewModel.csproj" />
+  <Project Path="QS/QS.Web.csproj" />
+</Solution>
