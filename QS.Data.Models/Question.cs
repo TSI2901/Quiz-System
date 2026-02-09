@@ -17,8 +17,11 @@ namespace QS.Data.Models
 		public Guid QuizId { get; set; }
 		[Required]
 		[ForeignKey(nameof(Media))]
-		public string QuestionText { get; set; } = null!;
-		public string QuestionType { get; set; } = null!;
+		public Guid MediaId { get; set; }
+		[Required]
+        public string QuestionText { get; set; } = null!;
+        [Required]
+        public string QuestionType { get; set; } = null!;
 		public int Points { get; set; }
 		public int TimeLimit { get; set; }
 
