@@ -6,10 +6,18 @@ using System.Security.Cryptography;
 
 namespace QS.Data
 {
-    public class QSDbContext(DbContextOptions<QSDbContext> options) : IdentityDbContext(options)
+    public class QSDbContext : IdentityDbContext<
+    ApplicationUser,
+    ApplicationRole,
+    Guid,
+    IdentityUserClaim<Guid>,
+    ApplicationUserRole,
+    IdentityUserLogin<Guid>,
+    IdentityRoleClaim<Guid>,
+    IdentityUserToken<Guid>>
     {
-        
 
+        public QSDbContext(DbContextOptions<QSDbContext> options) : base(options) { }
         public DbSet<Quiz> Quizzes { get; set; }
 		public DbSet<Question> Questions { get; set; }
 		public DbSet<Answer> Answers { get; set; }
@@ -18,6 +26,7 @@ namespace QS.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+
 
             modelBuilder.Entity<Quiz>()
                 .HasMany(x => x.Questions)
@@ -34,29 +43,29 @@ namespace QS.Data
                .WithMany(x => x.Questions)
                .HasForeignKey(x => x.MediaId);
 
-            //modelBuilder.Entity<ApplicationUser>()
-            //    .HasMany(e => e.UsersRoles)
-            //    .WithOne(e => e.User)
-            //    .HasForeignKey(ur => ur.UserId)
-            //    .IsRequired();
+            modelBuilder.Entity<ApplicationUser>()
+                .HasMany(e => e.UsersRoles)
+                .WithOne(e => e.User)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
 
-            //modelBuilder.Entity<ApplicationRole>()
-            //    .HasMany(e => e.UsersRoles)
-            //    .WithOne(e => e.Role)
-            //    .HasForeignKey(ur => ur.RoleId)
-            //    .IsRequired();
+            modelBuilder.Entity<ApplicationRole>()
+                .HasMany(e => e.UsersRoles)
+                .WithOne(e => e.Role)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
 
-            //modelBuilder.Entity<ApplicationUserRole>()
-            //    .HasOne(e => e.Role)
-            //    .WithMany(e => e.UsersRoles)
-            //    .HasForeignKey(ur => ur.RoleId)
-            //    .IsRequired();
+            modelBuilder.Entity<ApplicationUserRole>()
+                .HasOne(e => e.Role)
+                .WithMany(e => e.UsersRoles)
+                .HasForeignKey(ur => ur.RoleId)
+                .IsRequired();
 
-            //modelBuilder.Entity<ApplicationUserRole>()
-            //    .HasOne(e => e.User)
-            //    .WithMany(e => e.UsersRoles)
-            //    .HasForeignKey(ur => ur.UserId)
-            //    .IsRequired();
+            modelBuilder.Entity<ApplicationUserRole>()
+                .HasOne(e => e.User)
+                .WithMany(e => e.UsersRoles)
+                .HasForeignKey(ur => ur.UserId)
+                .IsRequired();
 
         }
 

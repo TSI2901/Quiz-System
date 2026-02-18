@@ -5,7 +5,7 @@ using System.Text;
 
 namespace QS.Data.Models
 {
-    public class ApplicationUserRole : IdentityRole<Guid>
+    public class ApplicationUserRole : IdentityUserRole<Guid>
     {
         public virtual ApplicationUser User { get; set; } = null!;
         public virtual ApplicationRole Role { get; set; } = null!;

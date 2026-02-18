@@ -1,6 +1,8 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using QS.Data;
+using QS.Data.Models;
+using System;
 
 namespace QS
 {
@@ -13,11 +15,17 @@ namespace QS
             // Add services to the container.
             var connectionString = builder.Configuration.GetConnectionString("DefaultConnection") ?? throw new InvalidOperationException("Connection string 'DefaultConnection' not found.");
             builder.Services.AddDbContext<QSDbContext>(options =>
-                options.UseSqlServer(connectionString));
+                options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection"),
+                b => b.MigrationsAssembly("QS.Data")));
+
+            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true).AddEntityFrameworkStores<QSDbContext>();
+
             builder.Services.AddDatabaseDeveloperPageExceptionFilter();
 
-            builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = true)
-                .AddEntityFrameworkStores<QSDbContext>();
+            builder.Services.AddIdentity<ApplicationUser, ApplicationRole>()
+            .AddEntityFrameworkStores<QSDbContext>()
+            .AddDefaultTokenProviders();
+
             builder.Services.AddControllersWithViews();
 
             var app = builder.Build();

@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using static QS.Common.ValidationConstants.ApplicationUser;
 
 namespace QS.Data.Models
 {
@@ -14,10 +15,10 @@ namespace QS.Data.Models
             UsersRoles = new HashSet<ApplicationUserRole>();
         }
 
-        //[MaxLength(FirstNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string FirstName { get; set; } = null!;
 
-        //[MaxLength(LastNameMaxLength)]
+        [MaxLength(NameMaxLength)]
         public string LastName { get; set; } = null!;
 
         public ApprovalStatus ApprovalStatus { get; set; }

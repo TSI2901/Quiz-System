@@ -15,7 +15,7 @@ namespace QS.Data.Models
 		[Key]
         public Guid QuizId { get; set; }
 		[Required]
-        public string Title { get; set; }
+		public string Title { get; set; } = null!;
 		public string? Description { get; set; }
 		public int? TimeLimit { get; set; }
 		public DateTime CreatedAt { get; set; }
